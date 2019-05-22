@@ -27,8 +27,18 @@ class Timer:
         message = f'{{time:.{self.precision}f}}'
         return message.format(time=self.elapsed())
 
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        return self.stop()
+
 
 if __name__ == '__main__':
-    t = Timer(precision=1)
-    sleep(random())
+    # t = Timer(precision=1)
+    with Timer(precision=9) as t:
+        sleep(random())
+        print(f'{t}')
+    print(f'{t}')
+    sleep(1)
     print(f'{t}')
