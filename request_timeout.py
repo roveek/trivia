@@ -66,10 +66,6 @@ class RequestTimeout:
         else:
             return self.read
 
-    def coefficient(self, coeff: Number) -> 'RequestTimeout':
-        """Возвращает экземпляр класса с установленным коэффициентом."""
-        return self.__class__(read=self._read, connect=self._connect, coefficient=coeff)
-
     def copy(self, *,
              read: Union[Number, Tuple[Number, Number]] = None,
              connect: Number = None,
@@ -80,6 +76,10 @@ class RequestTimeout:
                               connect=self._connect if connect is None else connect,
                               coefficient=self._coefficient if coefficient is None else coefficient)
 
+    def coefficient(self, coeff: Number) -> 'RequestTimeout':
+        """Возвращает экземпляр класса с установленным коэффициентом."""
+        return self.copy(coefficient=coeff)
+
 
 if __name__ == '__main__':
 
@@ -88,3 +88,6 @@ if __name__ == '__main__':
 
     tt = t.coefficient(.7)
     print('2:', f'{tt!r}', '=', tt.timeout)
+
+    ttt = tt.copy(read=99, connect=88, coefficient=.77)
+    print('3:', f'{ttt!r}', '=', ttt.timeout)
