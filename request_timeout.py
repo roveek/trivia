@@ -70,6 +70,16 @@ class RequestTimeout:
         """Возвращает экземпляр класса с установленным коэффициентом."""
         return self.__class__(read=self._read, connect=self._connect, coefficient=coeff)
 
+    def copy(self, *,
+             read: Union[Number, Tuple[Number, Number]] = None,
+             connect: Number = None,
+             coefficient: Number = None
+             ) -> 'RequestTimeout':
+        """Создаёт копию объекта с возможностью заменить любое из хранимых значений."""
+        return self.__class__(read=self._read if read is None else read,
+                              connect=self._connect if connect is None else connect,
+                              coefficient=self._coefficient if coefficient is None else coefficient)
+
 
 if __name__ == '__main__':
 
