@@ -31,7 +31,10 @@ class Timer:
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        return self.stop()
+        self.stop()
+        if exc_val:
+            return False
+        return self
 
 
 if __name__ == '__main__':
